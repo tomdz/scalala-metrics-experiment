@@ -4,4 +4,4 @@ In order to run this, you'll need to apply the patch [metrics.patch](https://git
 
 Then, simply run it via `sbt` and you'll get a plot like this:
 
-![Plot](https://github.com/tomdz/scalala-metrics-experiment/blob/master/plot.png)
+![Plot](https://github.com/tomdz/scalala-metrics-experiment/raw/master/plot.png)
