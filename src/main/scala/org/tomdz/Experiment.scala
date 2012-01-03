@@ -11,6 +11,7 @@ import org.apache.commons.math.distribution.NormalDistributionImpl
 import org.apache.commons.math.distribution.BetaDistributionImpl
 import com.yammer.metrics.stats.UniformSample
 import scalala.library.plotting.StaticHistogramBins
+import java.awt.Color
 
 object ScalalaDerivates {
   val NUM_VALUES = 1000000
@@ -88,10 +89,12 @@ object ScalalaDerivates {
   
   def main(args: Array[String]): Unit = {
     plot.hold = true
+    figure.frame.setSize(1600, 1200)
     addPlot(uniform(NUM_VALUES), 1, "Uniform distribution")
     addPlot(normal(NUM_VALUES), 2, "Normal distribution")
     addPlot(gamma(NUM_VALUES), 3, "Gamma distribution")
     addPlot(beta(NUM_VALUES), 4, "Beta distribution")
-    addPlot(line(NUM_VALUES, 0, 1000), 5, "Increasing values")
+    addPlot(line(NUM_VALUES, 0, 1), 5, "Increasing values")
+    saveas("plot.png")
   }
 }
