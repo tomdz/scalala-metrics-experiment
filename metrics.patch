@@ -1,0 +1,36 @@
+diff --git metrics-core/src/main/java/com/yammer/metrics/stats/ExponentiallyDecayingSample.java metrics-core/src/main/java/com/yammer/metrics/stats/ExponentiallyDecayingSample.java
+index 98ffe2f..bb3465a 100644
+--- metrics-core/src/main/java/com/yammer/metrics/stats/ExponentiallyDecayingSample.java
++++ metrics-core/src/main/java/com/yammer/metrics/stats/ExponentiallyDecayingSample.java
+@@ -53,7 +53,7 @@ public class ExponentiallyDecayingSample implements Sample {
+             values.clear();
+             count.set(0);
+             this.startTime = tick();
+-            nextScaleTime.set(System.nanoTime() + RESCALE_THRESHOLD);
++            nextScaleTime.set(nowInNs() + RESCALE_THRESHOLD);
+         } finally {
+             unlockForRescale();
+         }
+@@ -97,7 +97,7 @@ public class ExponentiallyDecayingSample implements Sample {
+             unlockForRegularUsage();
+         }
+ 
+-        final long now = System.nanoTime();
++        final long now = nowInNs();
+         final long next = nextScaleTime.get();
+         if (now >= next) {
+             rescale(now, next);
+@@ -127,8 +127,12 @@ public class ExponentiallyDecayingSample implements Sample {
+         }
+     }
+ 
++    protected long nowInNs() {
++        return System.nanoTime();
++    }
++
+     private long tick() {
+-        return System.currentTimeMillis() / 1000;
++        return nowInNs() / 1000000000;
+     }
+ 
+     private double weight(long t) {
