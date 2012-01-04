@@ -16,7 +16,6 @@ import java.awt.Color
 object ScalalaDerivates {
   val NUM_VALUES = 1000000
   val NUM_SAMPLES = 10000
-  val SCALE_FAC = 1000
   val DECAY_FACTOR = 0.015
 
   def sampleUniformly(values: DenseVector[Double], numSamples: Int, scaleFac: Long): DenseVector[Double] = {
@@ -71,11 +70,11 @@ object ScalalaDerivates {
 
   def addPlot(dist: => DenseVector[Double], row: Int, titleStr: String) {
     val values = dist
-    val uniformlySampledValues = sampleUniformly(values, NUM_SAMPLES, SCALE_FAC)
-    val valuesSampledWithDecay = sampleWithDecay(values, DECAY_FACTOR, NUM_SAMPLES, SCALE_FAC, 1)
+    val uniformlySampledValues = sampleUniformly(values, NUM_SAMPLES, NUM_SAMPLES)
+    val valuesSampledWithDecay = sampleWithDecay(values, DECAY_FACTOR, NUM_SAMPLES, NUM_SAMPLES, 1)
 
     subplot(row, 3, 3*(row - 1) + 1)
-    hist(values :* SCALE_FAC, NUM_SAMPLES)
+    hist(values :* NUM_SAMPLES, NUM_SAMPLES)
     title(titleStr)
 
     subplot(row, 3, 3*(row - 1) + 2)
